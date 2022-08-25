@@ -66,7 +66,8 @@ def DatasetSelector(dataset):
 
 
 def EvDisp(run,subrun,event,plane,dataset,debug=False):
-    input_file=DatasetSelector(dataset)
+    base_dir = "./hepgpu4-data2/lmlepin/Ole_files/"
+    input_file=base_dir+DatasetSelector(dataset)
     producer = 'wire'
     f = h5py.File(input_file,'r')
     event_id_list = f['eventid']
