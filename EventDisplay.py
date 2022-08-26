@@ -17,16 +17,16 @@ import numpy as np
 
 '''
 Things to do: 
-* Add option to select the class - file 
-* What if we have more than one plane?
 * Add text with run,subrun,event 
 * Where the images will be stored? 
 '''
 
+# Function to get the entry of an event given its labels (run,subrun and event)
 def SearchID(run,subrun,event,id_list):
     id = 0 
+    # First entry in hdf5 metadata is event number and 3rd entry is run number  
     for element in id_list:
-        if(element[1]==run and element[2]==subrun and element[3]==event):
+        if(element[1]==event and element[2]==subrun and element[3]==run):
             id = element[0]
         else:
             pass
@@ -48,7 +48,7 @@ def PlaneLabel(plane):
 def DatasetSelector(dataset):
     file='none'
     if(dataset == 'mc'):
-        file='bnb_run3_nue_larcv_cropped.h5'
+        file='bnb_run3_nue_larcv.h5'
     elif(dataset == 'data'):
         file='bnb_run3_open_data_larcv.h5'
     elif(dataset == 'dirt'):
@@ -60,20 +60,15 @@ def DatasetSelector(dataset):
     return file 
 
 
-
-
-
-
-
 def EvDisp(run,subrun,event,plane,dataset,debug=False):
-    base_dir = "./hepgpu4-data2/lmlepin/Ole_files/"
+    base_dir = "/hepgpu4-data2/lmlepin/Ole_files/"
     input_file=base_dir+DatasetSelector(dataset)
     producer = 'wire'
     f = h5py.File(input_file,'r')
     event_id_list = f['eventid']
     entry = SearchID(run,subrun,event,event_id_list)
     if(debug):
-    	entry = 10
+    	entry = 1000
     else: 
     	entry = SearchID(run,subrun,event,event_id_list)
     plane_label = PlaneLabel(plane)
@@ -84,8 +79,9 @@ def EvDisp(run,subrun,event,plane,dataset,debug=False):
     image=wire_set[list(wire_set.keys())[0]]
     #print(image)
     fontprops=fm.FontProperties(size=10)
-    fig, ax1= plt.subplots(1,1)
-    plt.title("Plane: " +  plane_label)
+    plot_title = "BNB Run 3, Dataset: " + dataset + ", Plane : " + plane_label
+    fig, ax1= plt.subplots(1,1,figsize=(8.5,2.5))
+    plt.title(plot_title)
     plt.xlabel("Wire number")
     plt.ylabel("Time tick")
     ax1.imshow(image[entry,plane,:,:],cmap='turbo',origin="lower")
