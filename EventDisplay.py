@@ -48,7 +48,7 @@ def PlaneLabel(plane):
 def DatasetSelector(dataset):
     file='none'
     if(dataset == 'mc'):
-        file='bnb_run3_nue_larcv.h5'
+        file='bnb_run3_mc_larcv.h5'
     elif(dataset == 'data'):
         file='bnb_run3_open_data_larcv.h5'
     elif(dataset == 'dirt'):
@@ -80,7 +80,7 @@ def EvDisp(run,subrun,event,plane,dataset,debug=False):
     #print(image)
     fontprops=fm.FontProperties(size=10)
     plot_title = "BNB Run 3, Dataset: " + dataset + ", Plane : " + plane_label
-    fig, ax1= plt.subplots(1,1,figsize=(8.5,2.5))
+    fig, ax1= plt.subplots(1,1,figsize=(8.5,3.5))
     plt.title(plot_title)
     plt.xlabel("Wire number")
     plt.ylabel("Time tick")
