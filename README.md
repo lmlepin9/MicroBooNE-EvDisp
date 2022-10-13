@@ -1,7 +1,7 @@
 # MicroBooNE-EvDisp
 Basic event display for MicroBooNE events. This event display is ment to be use in a 3rd year neutrino physics laboratory.
 
-NOTE: This is not an official MicroBooNE event display! 
+NOTE: This is not an official MicroBooNE software! 
 
 ## Dependencies 
 
